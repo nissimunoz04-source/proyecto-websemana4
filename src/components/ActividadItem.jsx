@@ -10,33 +10,78 @@ function ActividadItem({
 
   const [completada, setCompletada] = useState(false);
   const [expandido, setExpandido] = useState(false);
+  const [hover, setHover] = useState(false);
+
+  // Colores personalizados según la etapa didáctica
+  const colores = {
+    'Diagnóstica': {
+      fondo: '#FFF0F7',
+      borde: '#EC4899',
+      etiqueta: '#F4B8CE',
+      texto: '#9D174D',
+      boton: '#BE185D'
+    },
+    'Construcción': {
+      fondo: '#EFF8FF',
+      borde: '#0284C7',
+      etiqueta: '#BAE6FD',
+      texto: '#075985',
+      boton: '#0369A1'
+    },
+    'Aplicación': {
+      fondo: '#ECFDF8',
+      borde: '#0D9488',
+      etiqueta: '#99F6E4',
+      texto: '#115E59',
+      boton: '#0F766E'
+    }
+  };
+
+  const tema = colores[etapaDidactica] || {
+    fondo: '#FAF5FF',
+    borde: '#A855F7',
+    etiqueta: '#E9D5FF',
+    texto: '#581C87',
+    boton: '#6B21A8'
+  };
 
   return (
-    <div style={{
-      border: '1px solid #E9D5FF',
-      borderLeft: '5px solid #C084FC',
-      padding: '15px 20px',
-      borderRadius: '10px',
-      marginBottom: '12px',
-      background: completada ? '#E9D5FF' : '#FAF5FF',
-      boxShadow: '0 3px 8px rgba(0,0,0,0.08)',
-      textAlign: 'left'
-    }}>
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        border: `1px solid ${tema.borde}`,
+        borderLeft: `6px solid ${tema.borde}`,
+        padding: '22px',
+        borderRadius: '16px',
+        marginBottom: '18px',
+        background: completada
+          ? 'linear-gradient(135deg, #F3E8FF, #FCE7F3)'
+          : tema.fondo,
+        boxShadow: hover
+          ? `0 12px 28px ${tema.borde}35`
+          : '0 4px 12px rgba(0,0,0,0.07)',
+        transform: hover ? 'translateY(-4px)' : 'translateY(0)',
+        transition: 'all 0.3s ease',
+        textAlign: 'left'
+      }}
+    >
 
+      {/* Información principal */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap',
-        gap: '15px'
+        gap: '14px'
       }}>
 
         <div style={{ flex: '1 1 180px' }}>
           <span style={{
-            background: '#E9D5FF',
-            color: '#6B21A8',
-            padding: '4px 10px',
-            borderRadius: '6px',
+            background: tema.etiqueta,
+            color: tema.texto,
+            padding: '6px 12px',
+            borderRadius: '20px',
             fontSize: '12px',
             fontWeight: 'bold'
           }}>
@@ -44,9 +89,10 @@ function ActividadItem({
           </span>
 
           <h4 style={{
-            margin: '12px 0 0 0',
-            color: '#581C87',
-            fontSize: '15px'
+            margin: '16px 0 0',
+            color: tema.texto,
+            fontSize: '17px',
+            lineHeight: '1.5'
           }}>
             {tituloActividad}
           </h4>
@@ -54,7 +100,8 @@ function ActividadItem({
 
         <span style={{
           fontSize: '13px',
-          color: '#7E22CE',
+          color: tema.texto,
+          fontWeight: '600',
           whiteSpace: 'nowrap'
         }}>
           ⏳ {duracion}
@@ -66,22 +113,24 @@ function ActividadItem({
         display: 'flex',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        gap: '10px',
-        marginTop: '18px'
+        gap: '12px',
+        marginTop: '20px'
       }}>
 
         <button
           type="button"
           onClick={() => setCompletada(!completada)}
+          aria-pressed={completada}
           style={{
-            background: completada ? '#7C3AED' : '#B57EDC',
+            background: completada ? '#6B21A8' : tema.boton,
             color: '#FFFFFF',
             border: 'none',
-            padding: '9px 14px',
-            borderRadius: '6px',
+            padding: '11px 16px',
+            borderRadius: '9px',
             cursor: 'pointer',
             fontSize: '12px',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            transition: 'background 0.3s ease'
           }}
         >
           {completada
@@ -97,31 +146,32 @@ function ActividadItem({
             background: '#6B21A8',
             color: '#FFFFFF',
             border: 'none',
-            padding: '9px 14px',
-            borderRadius: '6px',
+            padding: '11px 16px',
+            borderRadius: '9px',
             cursor: 'pointer',
             fontSize: '12px',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            transition: 'background 0.3s ease'
           }}
         >
           {expandido
             ? '▲ Ocultar descripción'
             : '▼ Ver detalle pedagógico'}
         </button>
-
       </div>
 
-      {/* Descripción que aparece y desaparece */}
+      {/* Descripción pedagógica expandible */}
       {expandido && (
         <div style={{
-          marginTop: '15px',
-          padding: '14px',
+          marginTop: '18px',
+          padding: '18px',
           background: '#FFFFFF',
-          borderLeft: '4px solid #A855F7',
-          borderRadius: '8px',
-          color: '#581C87',
-          fontSize: '13px',
-          lineHeight: '1.6'
+          borderLeft: `4px solid ${tema.borde}`,
+          borderRadius: '10px',
+          color: tema.texto,
+          fontSize: '14px',
+          lineHeight: '1.7',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
         }}>
           <strong>📚 Descripción pedagógica:</strong>
           <p style={{ marginBottom: 0 }}>
