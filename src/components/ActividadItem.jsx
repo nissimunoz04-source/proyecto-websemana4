@@ -1,10 +1,15 @@
 
 import React, { useState } from 'react';
 
-function ActividadItem({ tituloActividad, duracion, etapaDidactica }) {
+function ActividadItem({
+  tituloActividad,
+  duracion,
+  etapaDidactica,
+  descripcion = 'Actividad pedagógica para fortalecer el aprendizaje.'
+}) {
 
-  // Estado inicial de la actividad
   const [completada, setCompletada] = useState(false);
+  const [expandido, setExpandido] = useState(false);
 
   return (
     <div style={{
@@ -22,10 +27,11 @@ function ActividadItem({ tituloActividad, duracion, etapaDidactica }) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        flexWrap: 'wrap',
         gap: '15px'
       }}>
 
-        <div>
+        <div style={{ flex: '1 1 180px' }}>
           <span style={{
             background: '#E9D5FF',
             color: '#6B21A8',
@@ -53,13 +59,15 @@ function ActividadItem({ tituloActividad, duracion, etapaDidactica }) {
         }}>
           ⏳ {duracion}
         </span>
-
       </div>
 
-      {/* Botón interactivo con useState */}
+      {/* Botones interactivos */}
       <div style={{
-        textAlign: 'center',
-        marginTop: '15px'
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '10px',
+        marginTop: '18px'
       }}>
 
         <button
@@ -69,7 +77,7 @@ function ActividadItem({ tituloActividad, duracion, etapaDidactica }) {
             background: completada ? '#7C3AED' : '#B57EDC',
             color: '#FFFFFF',
             border: 'none',
-            padding: '8px 14px',
+            padding: '9px 14px',
             borderRadius: '6px',
             cursor: 'pointer',
             fontSize: '12px',
@@ -81,7 +89,46 @@ function ActividadItem({ tituloActividad, duracion, etapaDidactica }) {
             : '⏳ Marcar como Completada'}
         </button>
 
+        <button
+          type="button"
+          onClick={() => setExpandido(!expandido)}
+          aria-expanded={expandido}
+          style={{
+            background: '#6B21A8',
+            color: '#FFFFFF',
+            border: 'none',
+            padding: '9px 14px',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            fontSize: '12px',
+            fontWeight: 'bold'
+          }}
+        >
+          {expandido
+            ? '▲ Ocultar descripción'
+            : '▼ Ver detalle pedagógico'}
+        </button>
+
       </div>
+
+      {/* Descripción que aparece y desaparece */}
+      {expandido && (
+        <div style={{
+          marginTop: '15px',
+          padding: '14px',
+          background: '#FFFFFF',
+          borderLeft: '4px solid #A855F7',
+          borderRadius: '8px',
+          color: '#581C87',
+          fontSize: '13px',
+          lineHeight: '1.6'
+        }}>
+          <strong>📚 Descripción pedagógica:</strong>
+          <p style={{ marginBottom: 0 }}>
+            {descripcion}
+          </p>
+        </div>
+      )}
 
     </div>
   );

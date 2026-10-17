@@ -17,14 +17,14 @@ function App() {
       {/* Encabezado principal */}
       <HeaderClase
         tituloTema="🌐💻 Desarrollo de Aplicaciones Web 🌐💻"
-        nombreDocente="Mía Muñoz 👩‍🏫💗 "
+        nombreDocente="Mía Muñoz 👩‍🏫💗"
         horario="Sábados 7:00 AM ⏱️"
       />
 
       {/* Competencia e indicador de logro */}
       <ObjetivosCard
-        competencia="Construir interfaces web utilizando componentes reutilizables en React."
-        indicadorLogro="Utiliza correctamente las props para organizar y personalizar componentes."
+        competencia="Construir interfaces web utilizando componentes reutilizables en React e implementando interactividad mediante useState."
+        indicadorLogro="Utiliza correctamente props y useState para organizar componentes y controlar la visualización de información pedagógica."
       />
 
       {/* Título de la secuencia didáctica */}
@@ -42,23 +42,26 @@ function App() {
 
       {/* Actividad diagnóstica */}
       <ActividadItem
-        tituloActividad="❓Trivia Rápida Interactiva"
+        tituloActividad="❓ Trivia Rápida Interactiva"
         duracion="5 minutos"
         etapaDidactica="Diagnóstica"
+        descripcion="Evaluación inicial de conocimientos previos mediante preguntas interactivas y dinámicas gamificadas para motivar la participación de los estudiantes."
       />
 
       {/* Actividad de construcción */}
       <ActividadItem
-        tituloActividad="📝Taller Guiado de Componentes"
+        tituloActividad="📝 Taller Guiado de Componentes"
         duracion="25 minutos"
         etapaDidactica="Construcción"
+        descripcion="Construcción de interfaces web utilizando componentes reutilizables en React, propiedades (props), Vite y despliegue de aplicaciones mediante Vercel."
       />
 
       {/* Actividad de aplicación */}
       <ActividadItem
-        tituloActividad="💻Práctica de Props en React⚛️"
+        tituloActividad="💻 Pruebas de Estado con useState ⚛️"
         duracion="25 minutos"
         etapaDidactica="Aplicación"
+        descripcion="Implementación del hook useState para crear botones interactivos que permiten mostrar y ocultar descripciones pedagógicas, además de marcar actividades como completadas."
       />
 
     </div>
