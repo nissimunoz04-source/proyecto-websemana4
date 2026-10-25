@@ -1,9 +1,12 @@
-
 import React from 'react';
+import { motion } from 'framer-motion';
 
 function HeaderClase({ tituloTema, nombreDocente, horario }) {
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
       style={{
         background: 'linear-gradient(120deg, #6B21A8 0%, #A855F7 35%, #EC4899 70%, #0284C7 100%)',
         color: '#FFFFFF',
@@ -78,7 +81,7 @@ function HeaderClase({ tituloTema, nombreDocente, horario }) {
         🎓 Universidad Rafael Landívar
       </div>
 
-    </header>
+    </motion.header>
   );
 }
 

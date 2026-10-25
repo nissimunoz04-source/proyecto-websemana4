@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function ActividadItem({
   tituloActividad,
@@ -10,7 +10,6 @@ function ActividadItem({
 
   const [completada, setCompletada] = useState(false);
   const [expandido, setExpandido] = useState(false);
-  const [hover, setHover] = useState(false);
 
   // Colores personalizados según la etapa didáctica
   const colores = {
@@ -46,9 +45,20 @@ function ActividadItem({
   };
 
   return (
-    <div
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+    <motion.div
+      layout
+      whileHover={{
+        y: -4,
+        boxShadow: `0 12px 28px ${tema.borde}35`
+      }}
+      transition={{
+        layout: {
+          type: 'spring',
+          stiffness: 300,
+          damping: 30
+        },
+        duration: 0.3
+      }}
       style={{
         border: `1px solid ${tema.borde}`,
         borderLeft: `6px solid ${tema.borde}`,
@@ -58,11 +68,7 @@ function ActividadItem({
         background: completada
           ? 'linear-gradient(135deg, #F3E8FF, #FCE7F3)'
           : tema.fondo,
-        boxShadow: hover
-          ? `0 12px 28px ${tema.borde}35`
-          : '0 4px 12px rgba(0,0,0,0.07)',
-        transform: hover ? 'translateY(-4px)' : 'translateY(0)',
-        transition: 'all 0.3s ease',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.07)',
         textAlign: 'left'
       }}
     >
@@ -117,8 +123,10 @@ function ActividadItem({
         marginTop: '20px'
       }}>
 
-        <button
+        <motion.button
           type="button"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => setCompletada(!completada)}
           aria-pressed={completada}
           style={{
@@ -136,10 +144,12 @@ function ActividadItem({
           {completada
             ? '✅ Actividad Completada'
             : '⏳ Marcar como Completada'}
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
           type="button"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => setExpandido(!expandido)}
           aria-expanded={expandido}
           style={{
@@ -157,30 +167,55 @@ function ActividadItem({
           {expandido
             ? '▲ Ocultar descripción'
             : '▼ Ver detalle pedagógico'}
-        </button>
+        </motion.button>
       </div>
 
-      {/* Descripción pedagógica expandible */}
-      {expandido && (
-        <div style={{
-          marginTop: '18px',
-          padding: '18px',
-          background: '#FFFFFF',
-          borderLeft: `4px solid ${tema.borde}`,
-          borderRadius: '10px',
-          color: tema.texto,
-          fontSize: '14px',
-          lineHeight: '1.7',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-        }}>
-          <strong>📚 Descripción pedagógica:</strong>
-          <p style={{ marginBottom: 0 }}>
-            {descripcion}
-          </p>
-        </div>
-      )}
+      {/* Descripción pedagógica animada */}
+      <AnimatePresence initial={false}>
+        {expandido && (
+          <motion.div
+            key="descripcion"
+            initial={{
+              opacity: 0,
+              height: 0
+            }}
+            animate={{
+              opacity: 1,
+              height: 'auto'
+            }}
+            exit={{
+              opacity: 0,
+              height: 0
+            }}
+            transition={{
+              duration: 0.3
+            }}
+            style={{
+              overflow: 'hidden'
+            }}
+          >
+            <div style={{
+              marginTop: '18px',
+              padding: '18px',
+              background: '#FFFFFF',
+              borderLeft: `4px solid ${tema.borde}`,
+              borderRadius: '10px',
+              color: tema.texto,
+              fontSize: '14px',
+              lineHeight: '1.7',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+            }}>
+              <strong>📚 Descripción pedagógica:</strong>
 
-    </div>
+              <p style={{ marginBottom: 0 }}>
+                {descripcion}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+    </motion.div>
   );
 }
 

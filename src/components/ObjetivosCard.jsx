@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 function ObjetivosCard({ competencia, indicadorLogro }) {
   return (
@@ -12,15 +13,27 @@ function ObjetivosCard({ competencia, indicadorLogro }) {
     }}>
 
       {/* Tarjeta de competencia */}
-      <div style={{
-        background: '#FFF0F7',
-        border: '1px solid #F4B8CE',
-        borderLeft: '6px solid #EC4899',
-        borderRadius: '14px',
-        padding: '20px',
-        marginBottom: '16px',
-        boxShadow: '0 4px 12px rgba(236,72,153,0.10)'
-      }}>
+      <motion.div
+        whileHover={{
+          scale: 1.03,
+          boxShadow: '0px 10px 20px rgba(236,72,153,0.25)'
+        }}
+        whileTap={{ scale: 0.98 }}
+        transition={{
+          type: 'spring',
+          stiffness: 300
+        }}
+        style={{
+          background: '#FFF0F7',
+          border: '1px solid #F4B8CE',
+          borderLeft: '6px solid #EC4899',
+          borderRadius: '14px',
+          padding: '20px',
+          marginBottom: '16px',
+          boxShadow: '0 4px 12px rgba(236,72,153,0.10)',
+          cursor: 'pointer'
+        }}
+      >
 
         <h3 style={{
           color: '#9D174D',
@@ -40,17 +53,29 @@ function ObjetivosCard({ competencia, indicadorLogro }) {
           {competencia}
         </p>
 
-      </div>
+      </motion.div>
 
       {/* Tarjeta de indicador de logro */}
-      <div style={{
-        background: '#ECFEFF',
-        border: '1px solid #67E8F9',
-        borderLeft: '6px solid #2DD4BF',
-        borderRadius: '14px',
-        padding: '20px',
-        boxShadow: '0 4px 12px rgba(45,212,191,0.12)'
-      }}>
+      <motion.div
+        whileHover={{
+          scale: 1.03,
+          boxShadow: '0px 10px 20px rgba(45,212,191,0.25)'
+        }}
+        whileTap={{ scale: 0.98 }}
+        transition={{
+          type: 'spring',
+          stiffness: 300
+        }}
+        style={{
+          background: '#ECFEFF',
+          border: '1px solid #67E8F9',
+          borderLeft: '6px solid #2DD4BF',
+          borderRadius: '14px',
+          padding: '20px',
+          boxShadow: '0 4px 12px rgba(45,212,191,0.12)',
+          cursor: 'pointer'
+        }}
+      >
 
         <h3 style={{
           color: '#0F766E',
@@ -70,7 +95,7 @@ function ObjetivosCard({ competencia, indicadorLogro }) {
           {indicadorLogro}
         </p>
 
-      </div>
+      </motion.div>
 
     </section>
   );
