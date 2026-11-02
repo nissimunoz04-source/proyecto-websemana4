@@ -1,8 +1,8 @@
-
 import React from 'react';
 import HeaderClase from './components/HeaderClase';
 import ObjetivosCard from './components/ObjetivosCard';
 import ActividadItem from './components/ActividadItem';
+import ListaActividades from './components/ListaActividades';
 import './App.css';
 
 function App() {
@@ -63,6 +63,17 @@ function App() {
         etapaDidactica="Aplicación"
         descripcion="Implementación del hook useState para crear botones interactivos que permiten mostrar y ocultar descripciones pedagógicas, además de marcar actividades como completadas."
       />
+
+      {/* Actividades obtenidas desde NocoDB */}
+      <div style={{
+        marginTop: '35px',
+        padding: '20px',
+        backgroundColor: '#FFFFFF',
+        borderRadius: '15px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+      }}>
+        <ListaActividades />
+      </div>
 
     </div>
   );
